@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: wordpress
+spec:
+  template:
+    # This is the pod template
+    spec:
+      containers:
+      - name: wordpress
+        image: wordpress:5.5.0-php7.2-apache
+        ports:
+        - name: http
+          containerPort: 80
+          protocol: TCP
+      envFrom:
+      - secretRef:
+        name: wordpress-secret
+      - configRef:
+        name: wordpress-configmap
+        
+      restartPolicy: OnFailure
